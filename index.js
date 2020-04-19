@@ -1,5 +1,6 @@
 const {Engine,Render,Runner,World,Bodies} = Matter;
 
+const cells = 3;
 const width=600;
 const height = 600;
 
@@ -30,11 +31,19 @@ const walls =[
 World.add(world,walls);
 
 //Grid generations
-const grid = new Array(3).fill(null).map(()=>new Array(3).fill(false));
-grid[0] = grid[1]= grid[2];
+const arr1 =Array(cells).fill(false);
+const arr2 =Array(cells-1).fill(false); 
 
-const verticals = Array(3).fill(null).map(()=>Array(2).fill(false));
-verticals[0] = verticals[1] = verticals[2];
+const grid = new Array(cells).fill(null).map((e)=> e= arr1);
+const verticals = Array(cells).fill(null).map((e)=>e=arr2);
+const horizontals = Array(cells-1).fill(null).map((e)=>e=arr1);
 
-const horizontals = Array(2).fill(null).map(()=>Array(3).fill(false));
-horizontals[0] = horizontals[1];
+const startRow =Math.floor(Math.random()*cells);
+const startColumn = Math.floor(Math.random()*cells);
+
+const stepThroughCell = (row,column)=>{
+        
+}
+
+stepThroughCell(startRow,startColumn);
+
