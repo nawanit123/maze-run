@@ -48,7 +48,9 @@ const shuffle = (arr) => {
   return arr;
 };
 
-const grid = new Array(cells).fill(null).map(() => Array(cells).fill(false));
+const grid = Array(cells)
+  .fill(null)
+  .map(() => Array(cells).fill(false));
 const verticals = Array(cells)
   .fill(null)
   .map(() => Array(cells - 1).fill(false));
@@ -75,8 +77,8 @@ const stepThroughCell = (row, column) => {
 
   //For each neighbor ....
   for (let neighbour of neighbours) {
-    const [[nextRow, nextColumn, direction]] = neighbours;
-    console.log(nextRow, nextColumn, direction);
+    const [nextRow, nextColumn, direction] = neighbour;
+
     //See if that neighbor is out of bounds
     if (
       nextRow < 0 ||
@@ -106,7 +108,6 @@ const stepThroughCell = (row, column) => {
 };
 
 stepThroughCell(startRow, startColumn);
-console.log(horizontals);
 horizontals.forEach((row, rowIndex) => {
   row.forEach((open, columnIndex) => {
     if (open) return;
@@ -116,6 +117,22 @@ horizontals.forEach((row, rowIndex) => {
       rowIndex * unitLength + unitLength,
       unitLength,
       10,
+      {
+        isStatic: true,
+      }
+    );
+    World.add(world, wall);
+  });
+});
+verticals.forEach((row, rowIndex) => {
+  row.forEach((open, columnIndex) => {
+    if (open) return;
+
+    const wall = Bodies.rectangle(
+      columnIndex * unitLength + unitLength,
+      rowIndex * unitLength + unitLength / 2,
+      10,
+      unitLength,
       {
         isStatic: true,
       }
