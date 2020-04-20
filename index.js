@@ -1,7 +1,7 @@
 const { Engine, Render, Runner, World, Bodies, Body, Events } = Matter;
 const html = document.querySelector("html");
-const cellsHorizontal = 8;
-const cellsVertical = 5;
+const cellsHorizontal = 14;
+const cellsVertical = 10;
 const width = html.clientWidth;
 const height = html.clientHeight;
 
@@ -120,6 +120,9 @@ horizontals.forEach((row, rowIndex) => {
       {
         label: "wall",
         isStatic: true,
+        render: {
+          fillStyle: "tomato",
+        },
       }
     );
     World.add(world, wall);
@@ -137,6 +140,9 @@ verticals.forEach((row, rowIndex) => {
       {
         label: "wall",
         isStatic: true,
+        render: {
+          fillStyle: "tomato",
+        },
       }
     );
     World.add(world, wall);
@@ -152,6 +158,9 @@ const goal = Bodies.rectangle(
   {
     label: "goal",
     isStatic: true,
+    render: {
+      fillStyle: "green",
+    },
   }
 );
 
@@ -161,6 +170,9 @@ World.add(world, goal);
 ballRadius = Math.min(unitLengthX, unitLengthY) / 4;
 const ball = Bodies.circle(unitLengthX / 2, unitLengthY / 2, ballRadius, {
   label: "ball",
+  render: {
+    fillStyle: "yellow",
+  },
 });
 World.add(world, ball);
 
@@ -169,19 +181,19 @@ document.addEventListener("keydown", (event) => {
   const { x, y } = ball.velocity;
   if (event.keyCode === 87 || event.keyCode === 38) {
     //up
-    Body.setVelocity(ball, { x, y: y - 5 });
+    Body.setVelocity(ball, { x, y: y - 1.5 });
   }
   if (event.keyCode === 68 || event.keyCode === 39) {
     //right
-    Body.setVelocity(ball, { x: x + 5, y: y + 5 });
+    Body.setVelocity(ball, { x: x + 1.5, y: y + 1.5 });
   }
   if (event.keyCode === 83 || event.keyCode === 40) {
     //down
-    Body.setVelocity(ball, { x, y: y + 5 });
+    Body.setVelocity(ball, { x, y: y + 1.5 });
   }
   if (event.keyCode === 65 || event.keyCode === 37) {
     //left
-    Body.setVelocity(ball, { x: x - 5, y });
+    Body.setVelocity(ball, { x: x - 1.5, y });
   }
 });
 
@@ -193,6 +205,7 @@ Events.on(engine, "collisionStart", (event) => {
       labels.includes(collision.bodyA.label) &&
       labels.includes(collision.bodyB.label)
     ) {
+      document.querySelector(".winner").classList.remove("hidden");
       world.gravity.y = 1;
       world.bodies.forEach((body) => {
         if (body.label === "wall") {
