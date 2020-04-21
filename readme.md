@@ -1,6 +1,6 @@
 ## Maze Run
 
-Link: https://nawanit123.github.io/maze-run
+Link: https://nawanit123.github.io/maze-run <br>
 A simple Javascript maze game. Objective of the game is to move the ball to the goal by finding your way through the maze which is being generated randomly at every refresh.
 
 # Controls
